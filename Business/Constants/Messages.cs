@@ -17,5 +17,9 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Token oluşturuldu.";
         public static string AuthorizationDenied = "Yetkiniz yok!!!";
         public static string AccountListed = "Hesaplar Listelendi";
+        public static string UserListed = "Kullanıcılar Listelendi";
+        public static string PasswordUpdated = "Şifre başarıyla güncellendi";
+        public static string NewPasswordsMatchError = "Yeni şifreler eşleşmiyor";
+        public static string PasswordsSame="Eski şifre ile yeni şifre aynı olamaz";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Concrete;
 using Core.Utilities.Results;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,8 @@ namespace Business.Abstract
         IDataResult<User> GetById(int id);
         IResult Delete(User user);
         IResult Update(User user);
+        IDataResult<List<User>> GetAll();
+
+        IResult ChangePassword(UpdatePasswordDto updatePasswordDto);
     }
 }
