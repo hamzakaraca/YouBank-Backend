@@ -11,6 +11,6 @@ namespace Entities.DTOs
         public string AccountNumber { get; set; }
         public string CustomerFullName { get; set; }
         public DateTime AccountCreateDate { get; set; } = DateTime.Now;
-        public string Money { get; set; }
+        public int Money { get; set; }
     }
 }

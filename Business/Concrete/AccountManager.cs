@@ -66,9 +66,9 @@ namespace Business.Concrete
 
         
 
-        public IDataResult<string> ShowMoney(int customerId)
+        public IDataResult<int> ShowMoney(int customerId)
         {
-            return new SuccessDataResult<string>(_accountDal.Get(a => a.CustomerId == customerId).Money);
+            return new SuccessDataResult<int>(_accountDal.Get(a => a.CustomerId == customerId).Money);
         }
 
         public IDataResult<List<AccountDto>> GetAccountFullAttribute()
@@ -89,12 +89,21 @@ namespace Business.Concrete
 
         private IResult SetDefaultMoney(Account entity)
         {
-            entity.Money = "0";
+            entity.Money = 0;
             return new SuccessResult();
         }
         private IResult SetCreateDate(Account entity)
         {
             entity.AccountCreateDate = DateTime.Now;
+            return new SuccessResult();
+        }
+
+
+        public IResult AddMoney(int money, int id)
+        {
+            var entity=_accountDal.Get(a => a.Id == id);
+            entity.Money = entity.Money+money;
+            _accountDal.Update(entity);
             return new SuccessResult();
         }
     }

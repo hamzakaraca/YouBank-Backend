@@ -11,6 +11,6 @@ namespace Entities.Concrete
         public string AccountNumber { get; set; }
         public int CustomerId { get; set; }
         public DateTime AccountCreateDate { get; set; }
-        public string Money { get; set; }
+        public int Money { get; set; }
     }
 }

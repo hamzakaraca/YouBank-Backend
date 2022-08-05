@@ -129,5 +129,16 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("addmoney")]
+        public IActionResult AddMoney(int money,int id)
+        {
+            var result = _accountService.AddMoney(money,id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }

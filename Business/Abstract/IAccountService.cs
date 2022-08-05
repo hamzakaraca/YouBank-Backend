@@ -12,8 +12,9 @@ namespace Business.Abstract
     public interface IAccountService:IEntityServiceBase<Account>
     {
         IDataResult<List<Account>> GetByCustomerId(int customerId);
-        IDataResult<string> ShowMoney(int customerId);
+        IDataResult<int> ShowMoney(int customerId);
         IDataResult<List<AccountDto>> GetAccountFullAttribute();
         IResult DeleteById(int id);
+        IResult AddMoney(int money,int id);
     }
 }
