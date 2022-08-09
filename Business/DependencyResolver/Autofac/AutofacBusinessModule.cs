@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Core.Utilities.Security.JWT;
+using Core.Utilities.IntegratedValidations.Concrete;
+using Core.Utilities.IntegratedValidations.Abstract;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -33,6 +35,8 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+            builder.RegisterType<KPSPublicSoapClientAdapter>().As<ICheckPersonService>();
 
 
 

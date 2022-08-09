@@ -106,5 +106,13 @@ namespace Business.Concrete
             _accountDal.Update(entity);
             return new SuccessResult();
         }
+
+        public IResult WithDrawMoney(int money,int id)
+        {
+            var entity = _accountDal.Get(a => a.Id == id);
+            entity.Money = entity.Money - money;
+            _accountDal.Update(entity);
+            return new SuccessResult();
+        }
     }
 }

@@ -21,5 +21,7 @@ namespace Business.Constants
         public static string PasswordUpdated = "Şifre başarıyla güncellendi";
         public static string NewPasswordsMatchError = "Yeni şifreler eşleşmiyor";
         public static string PasswordsSame="Eski şifre ile yeni şifre aynı olamaz";
+        public static string PersonNotFound = "Kimlik bilgileriniz yanlış";
+        public static string NationalityNumberAlreadyExist="Sistemde bu tc nosuna sahip kullanıcı mevcut";
     }
 }
