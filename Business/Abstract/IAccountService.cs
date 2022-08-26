@@ -15,6 +15,12 @@ namespace Business.Abstract
         IDataResult<int> ShowMoney(int customerId);
         IDataResult<List<AccountDto>> GetAccountFullAttribute();
         IResult DeleteById(int id);
-        IResult AddMoney(int money,int id);
+        IResult AddMoney(MoneyAddDto moneyAddDto);
+        IDataResult<int> WithDrawMoney(DropMoneyDto dropMoneyDto);
+        IResult WithDrawAllMoney(int id);
+        IDataResult<List<Account>> GetByAccountNumber(string accountNumber);
+
+        //rules
+        IResult CheckMaxMoney(DropMoneyDto dropMoneyDto);
     }
 }

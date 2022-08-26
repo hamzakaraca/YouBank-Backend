@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -130,9 +131,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("addmoney")]
-        public IActionResult AddMoney(int money,int id)
+        public IActionResult AddMoney(MoneyAddDto moneyAddDto)
         {
-            var result = _accountService.AddMoney(money,id);
+            var result = _accountService.AddMoney(moneyAddDto);
             if (result.Success)
             {
                 return Ok(result);
@@ -140,5 +141,44 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbyaccountnumber")]
+        public IActionResult GetByAccountNumber(string accountNumber)
+        {
+            var result = _accountService.GetByAccountNumber(accountNumber);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("dropmoney")]
+        public IActionResult DropMoney(DropMoneyDto dropMoneyDto)
+        {
+            var result = _accountService.WithDrawMoney(dropMoneyDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("withdrawallmoney")]
+        public IActionResult WithDrawAllMoney(int id)
+        {
+            var result = _accountService.WithDrawAllMoney(id);
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
+        }
+
+        [HttpPost("checkmaxmoney")]
+        public IActionResult CheckMaxMoney(DropMoneyDto dropMoneyDto)
+        {
+            var result = _accountService.CheckMaxMoney(dropMoneyDto);
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }

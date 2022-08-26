@@ -23,5 +23,9 @@ namespace Business.Constants
         public static string PasswordsSame="Eski şifre ile yeni şifre aynı olamaz";
         public static string PersonNotFound = "Kimlik bilgileriniz yanlış";
         public static string NationalityNumberAlreadyExist="Sistemde bu tc nosuna sahip kullanıcı mevcut";
+        public static string AccountUpdated = "Hesap güncellendi";
+        public static string AddMoneySuccess="Para başarıyla hesabınıza yatırıldı.";
+        public static string InsufficientMoney="Hesaptaki para yetersiz.";
+        public static string IncorrectQuantity="Geçersiz miktar girdiniz.Lütfen pozitif değer giriniz";
     }
 }

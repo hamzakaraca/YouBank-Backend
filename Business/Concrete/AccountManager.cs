@@ -51,7 +51,7 @@ namespace Business.Concrete
             entity.Money = result.Money;
             entity.AccountCreateDate = result.AccountCreateDate;
             _accountDal.Update(entity);
-            return new SuccessResult();
+            return new SuccessResult(Messages.AccountUpdated);
         }
 
         public IDataResult<List<Account>> GetAll()
@@ -99,19 +99,58 @@ namespace Business.Concrete
         }
 
 
-        public IResult AddMoney(int money, int id)
+        public IResult AddMoney(MoneyAddDto moneyAddDto)
         {
-            var entity=_accountDal.Get(a => a.Id == id);
-            entity.Money = entity.Money+money;
+            var logic = BusinessRules.Run(CheckMinMoney(moneyAddDto));
+            if (logic!=null) return logic;
+            var entity=_accountDal.Get(a => a.Id == moneyAddDto.Id);
+            entity.Money = entity.Money+moneyAddDto.Money;
+            _accountDal.Update(entity);
+            return new SuccessResult(Messages.AddMoneySuccess);
+        }
+
+        public IDataResult<int> WithDrawMoney(DropMoneyDto dropMoneyDto)
+        {
+            var logic = BusinessRules.Run(CheckMaxMoney(dropMoneyDto));
+            if (logic != null) return new ErrorDataResult<int>(logic.Message);
+
+            var entity = _accountDal.Get(a => a.Id == dropMoneyDto.Id);
+            entity.Money = entity.Money - dropMoneyDto.Money;
+            _accountDal.Update(entity);
+            return new SuccessDataResult<int>(dropMoneyDto.Money);
+        }
+
+        public IResult WithDrawAllMoney(int id)
+        {
+            var entity = _accountDal.Get(a => a.Id == id);
+            entity.Money = 0;
             _accountDal.Update(entity);
             return new SuccessResult();
         }
 
-        public IResult WithDrawMoney(int money,int id)
+        [SecuredOperation("admin,moderatör")]
+        public IDataResult<List<Account>> GetByAccountNumber(string accountNumber)
         {
-            var entity = _accountDal.Get(a => a.Id == id);
-            entity.Money = entity.Money - money;
-            _accountDal.Update(entity);
+            return new SuccessDataResult<List<Account>>(_accountDal.GetAll(a => a.AccountNumber == accountNumber));
+        }
+
+        public IResult CheckMaxMoney(DropMoneyDto dropMoneyDto)
+        {
+            var entity = _accountDal.Get(a => a.Id == dropMoneyDto.Id);
+            if (entity.Money<dropMoneyDto.Money)
+            {
+                return new ErrorResult(Messages.InsufficientMoney);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckMinMoney(MoneyAddDto moneyAddDto)
+        {
+            
+            if (moneyAddDto.Money<0)
+            {
+                return new ErrorResult(Messages.IncorrectQuantity);
+            }
             return new SuccessResult();
         }
     }
